@@ -27,7 +27,10 @@ public class Recursion {
         if(target < 0) return false;
         for(int i=0 ; i < arr.length; i++) {
             int remainder = target - arr[i];
-            return  canSum(arr, remainder);
+            if(canSum(arr, remainder))
+            {
+                return true;
+            }
         }
         return false;
     }
