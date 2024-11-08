@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.Arrays;
 
 public class DijkstraAlgorithm {
     int V; int[][] graph;
@@ -6,8 +6,33 @@ public class DijkstraAlgorithm {
         this.V = V;
         graph = new int[V][V];
     }
+    public int minVertex(boolean[] visited, int[] cost) {
+        int minVetex = -1; int minCost = Integer.MAX_VALUE;
+        for(int i=0 ; i < V; i++) {
+            if(cost[i] < minCost && !visited[i]) {
+                minVetex = i;
+                minCost = cost[i];
+            }
+        }
+        return minVetex;
+    }
     public void dijkstra(int[][] graph, int start) {
-
+        boolean[] visited = new boolean[V];
+        Arrays.fill(visited, false);
+        int[] cost = new int[V];
+        Arrays.fill(cost, Integer.MAX_VALUE);
+        cost[start] = graph[start][start];
+        for(int i=0; i < V-1; i++) {
+            int u = minVertex(visited, cost);               // u --> source
+            visited[u] = true;
+            for(int v=0; v < V; v++) {                      // v --> destination
+                // edge b/w u to v, !visited[v], graph[u][v] <= cost[v]
+                if(graph[u][v] != 0 && !visited[v] && cost[v] > cost[u] + graph[u][v]) {
+                    cost[v] = cost[u] + graph[u][v];
+                }
+            }
+        }
+        for(int i=0; i < V; i++) System.out.print(cost[i] + " ");
     }
     public static void main(String[] args) {
         int V = 9;
@@ -23,8 +48,6 @@ public class DijkstraAlgorithm {
                 {8, 11, 0, 0, 0, 0, 1, 0, 7},
                 {0, 0, 2, 0, 0, 0, 6, 7, 0}
         };
-        Scanner sc = new Scanner(System.in);
-        int start = sc.nextInt();
-        da.dijkstra(da.graph, start);
+        da.dijkstra(da.graph, 0);
     }
 }

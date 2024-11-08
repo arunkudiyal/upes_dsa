@@ -12,8 +12,8 @@ public class PrimsMST {
         int[] cost = new int[V];
         Arrays.fill(cost, Integer.MAX_VALUE);
         int[] parent = new int[V];
-        cost[1] = graph[1][1];
-        parent[1] = -1;
+        cost[0] = graph[0][0];
+        parent[0] = -1;
         for(int i=0; i < V-1; i++) {
             int u = minVertex(visited, cost);               // u --> source
             visited[u] = true;
@@ -25,13 +25,13 @@ public class PrimsMST {
                 }
             }
         }
+        int minCost = 0;
         System.out.println("S_to_D\tCost");
-        int sumOfCost = 0;
         for(int i=0; i < V; i++) {
+            minCost += cost[i];
             System.out.println(parent[i] + " - " + i + "\t" + cost[i]);
-            sumOfCost += cost[i];
         }
-        System.out.println(sumOfCost);
+        System.out.println("Min Cost Tree - " + minCost);
     }
     public int minVertex(boolean[] visited, int[] cost) {
         int minVetex = -1; int minCost = Integer.MAX_VALUE;
