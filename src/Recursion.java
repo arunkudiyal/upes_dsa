@@ -13,7 +13,6 @@ public class Recursion {
         if(m < 0 || n < 0) return -1;
         if(m == 0 || n == 0) return 0;
         if(m == 1 && n == 1) return 1;
-        // noOfWays(downward) + noOfWays(rightward)
         return gridTraveller(n-1, m)  + gridTraveller(n, m-1);
     }
 
