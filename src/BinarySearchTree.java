@@ -1,3 +1,7 @@
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+
 public class BinarySearchTree {
     Node root;
     static class Node {
@@ -13,6 +17,7 @@ public class BinarySearchTree {
     public int height() { return getHeight(root); }
     public void delete(int key) { root = deleteKey(root, key); }
     public void inOrder() { inOrderTraversal(root); System.out.println(); }
+    public void BFS() { bfs(root); }
     public Node insertData(Node root, int data) {
         if(root == null) root = new Node(data);
         else if(data < root.data) root.left = insertData(root.left, data);
@@ -61,6 +66,22 @@ public class BinarySearchTree {
             inOrderTraversal(root.right);
         }
     }
+    public void bfs(Node root) {
+        if (root == null) {
+            System.out.println("Tree is empty.");
+            return;
+        }
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            Node current = queue.poll();
+            System.out.print(current.data + " ");
+
+            if (current.left != null) queue.add(current.left);
+            if (current.right != null) queue.add(current.right);
+        }
+    }
+
     public void display(Node root) {
         if(root != null) {
             display(root.right);
@@ -72,7 +93,7 @@ public class BinarySearchTree {
     public static void main(String[] args) {
         BinarySearchTree bst = new BinarySearchTree();              // root = null;
         // bst.insertData(bst.root, 50);
-        bst.insert(50);
+        /* bst.insert(50);
         bst.insert(30);
         bst.insert(20);
         bst.insert(10);
@@ -84,9 +105,17 @@ public class BinarySearchTree {
 
         System.out.println( bst.height() );              // 4
         bst.inOrder();                                   // 10 20 30 40 50 60 90 100 120
-
+        System.out.println("BFS");
+        bst.BFS();
         //bst.display(bst.root);
-        bst.delete(50);
-        bst.inOrder();                                  // 10 20 30 40 60 90 100 120
+        // bst.delete(50);
+        // bst.inOrder();                                  // 10 20 30 40 60 90 100 120 */
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        for(int i=0; i < n; i++) {
+	        int element = sc.nextInt();
+	        bst.insert(element);
+        }
+        System.out.println(bst.height());
     }
 }
